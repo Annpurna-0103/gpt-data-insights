@@ -1,0 +1,5 @@
+Product Category,Sales,Quantity,Profit,Region,Date,Stock Open,Stock High,Stock Low,Stock Close
+Electronics,1500,30,500,North,2023-01-01,1500,1550,1480,1530
+Clothing,1000,50,200,South,2023-01-02,1530,1600,1510,1580
+Groceries,800,100,300,East,2023-01-03,1580,1620,1550,1600
+Furniture,2000,20,800,West,2023-01-04,1620,1680,1600,1650

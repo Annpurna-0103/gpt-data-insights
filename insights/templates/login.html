@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+           
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 100px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group label {
+            color: #333;
+            font-weight: bold;
+        }
+        .form-group i {
+            margin-right: 8px;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            border-color: #007bff;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+        }
+        .forgot-password, .already-have-account {
+            margin-top: 15px;
+            text-align: center;
+            color: #333;
+        }
+        .forgot-password a, .already-have-account a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+        .forgot-password a:hover, .already-have-account a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    
+        .alert {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+    
+        <div id="alert-container"></div> <!-- This will display the alerts -->
+    
+        <form method="post" action="{% url 'login' %}" id="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-group">
+                    <!-- Icon inside input field -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required maxlength="8" minlength="3">
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <!-- Icon inside the input field -->
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your Password" required minlength="8" maxlength="12">
+                    <!-- Eye button inside the input field -->
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+    
+            <button type="submit" class="btn btn-custom" id="login-btn">
+                <i class="fas fa-sign-in-alt" id="login-icon"></i> Login
+                <span id="spinner" class="spinner-border spinner-border-sm" style="display: none;"></span>
+            </button>
+        </form>
+    
+        <div class="forgot-password">
+            <p><a href="{% url 'password_reset' %}"><i class="fas fa-unlock-alt"></i> Forgot Password?</a></p>
+        </div>
+        <div class="already-have-account">
+            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+        </div>
+    
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+        const eyeIcon = document.getElementById("eyeIcon");
+    
+        togglePassword.addEventListener("click", function() {
+            // Toggle password visibility
+            const type = password.type === "password" ? "text" : "password";
+            password.type = type;
+    
+            // Toggle the eye icon (open/close)
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
+
+        $(function() {
+    $('#login-form').submit(function(event) {
+        event.preventDefault(); // Prevent normal form submission
+
+        // Show the spinner and disable the submit button
+        $('#spinner').show();
+        $('#login-btn').prop('disabled', true);
+
+        // Get CSRF token from the form
+        const csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
+        // Send AJAX request
+        $.ajax({
+            url: $(this).attr('action'),  // Form action URL (Django view URL)
+            method: 'POST',
+            data: $(this).serialize(),  // Serialize form data
+            headers: {
+                'X-CSRFToken': csrfToken  // Include CSRF token in request headers
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Show success alert and redirect
+                    $('#alert-container').html('<div class="alert alert-success">' + response.message + '</div>');
+                    window.location.href = "/upload";  // Adjust the URL to your upload page
+                } else if (response.status === 'user_not_found') {
+                    // Show user not found alert
+                    $('#alert-container').html('<div class="alert alert-danger">' + response.message + '</div>');
+                } else if (response.status === 'invalid_password') {
+                    // Show invalid password alert
+                    $('#alert-container').html('<div class="alert alert-danger">' + response.message + '</div>');
+                } else if (response.status === 'error') {
+                    // Show invalid form submission error
+                    $('#alert-container').html('<div class="alert alert-danger">' + response.message + '</div>');
+                }
+
+                // Make the alert fade out after 5 seconds
+                $('.alert').fadeIn().delay(5000).fadeOut();
+            },
+            error: function(xhr, status, error) {
+                // General error handling
+                $('#alert-container').html('<div class="alert alert-danger">An unexpected error occurred. Please try again.</div>');
+
+                // Make the alert fade out after 5 seconds
+                $('.alert').fadeIn().delay(5000).fadeOut();
+            },
+            complete: function() {
+                // Hide spinner and re-enable the submit button
+                $('#spinner').hide();
+                $('#login-btn').prop('disabled', false);
+            }
+        });
+    });
+});
+
+
+    </script>
+</body>
+</html>

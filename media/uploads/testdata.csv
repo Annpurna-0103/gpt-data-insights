@@ -1,0 +1,29 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Category,Sales,Quantity,Date,Region,Profit,CustomerType\
+Electronics,1500,30,2023-01-01,North,500,New\
+Clothing,1000,50,2023-01-02,South,200,Returning\
+Groceries,800,100,2023-01-03,East,300,New\
+Furniture,2000,20,2023-01-04,West,800,Returning\
+Electronics,1800,40,2023-01-05,North,600,New\
+Clothing,1200,45,2023-01-06,South,250,Returning\
+Groceries,900,90,2023-01-07,East,350,New\
+Furniture,2200,25,2023-01-08,West,850,Returning\
+Electronics,2000,35,2023-01-09,North,700,New\
+Clothing,1100,55,2023-01-10,South,300,Returning\
+Groceries,950,85,2023-01-11,East,380,New\
+Furniture,2100,30,2023-01-12,West,900,Returning\
+Electronics,1700,38,2023-01-13,North,550,New\
+Clothing,1050,52,2023-01-14,South,220,Returning\
+Groceries,880,95,2023-01-15,East,320,New\
+Furniture,2100,28,2023-01-16,West,880,Returning\
+Electronics,1900,34,2023-01-17,North,670,New\
+Clothing,1150,48,2023-01-18,South,260,Returning\
+Groceries,930,87,2023-01-19,East,360,New\
+Furniture,2300,22,2023-01-20,West,920,Returning\
+}
